@@ -40,26 +40,32 @@ window.addEventListener('load', () => {
     renderEntries();
 });
 
-// Adjust settings panel visibility
+// Adjust settings modal visibility
 document.addEventListener('DOMContentLoaded', function() {
-    const settingsPanel = document.getElementById('settingsPanel');
+    const settingsModal = document.getElementById('settingsModal');
     const settingsBtn = document.getElementById('settingsBtn');
     const saveBtn = document.getElementById('saveBtn');
-    const closeBtn = document.getElementById('closeBtn');
+    const closeBtn = document.getElementsByClassName('close')[0];
 
     settingsBtn.addEventListener('click', () => {
-        settingsPanel.classList.toggle('show-panel');
+        settingsModal.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', () => {
+        settingsModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target == settingsModal) {
+            settingsModal.style.display = 'none';
+        }
     });
 
     saveBtn.addEventListener('click', () => {
         const apiKey = document.getElementById('apiKey').value;
         settings.apiKey = apiKey;
         localStorage.setItem('settings', JSON.stringify(settings));
-        settingsPanel.classList.remove('show-panel');
-    });
-
-    closeBtn.addEventListener('click', () => {
-        settingsPanel.classList.remove('show-panel');
+        settingsModal.style.display = 'none';
     });
 });
 
