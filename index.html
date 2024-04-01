@@ -12,20 +12,28 @@
         <button id="settingsBtn">Settings</button>
     </header>
     <main id="main">
-        <form id="entryForm">
-            <input type="date" id="date">
-            <input type="text" id="event" placeholder="Event">
-            <input type="time" id="arriveTime">
-            <input type="time" id="leaveTime">
-            <input type="number" id="numPeople" placeholder="Number of People">
-            <button type="submit">Save</button>
-        </form>
+        <div class="card">
+            <h2>Add Entry</h2>
+            <form id="entryForm">
+                <input type="date" id="date" value="${getCurrentDate()}">
+                <input type="text" id="event" placeholder="Event">
+                <input type="time" id="arriveTime">
+                <input type="time" id="leaveTime">
+                <input type="number" id="numPeople" placeholder="Number of People">
+                <button type="submit">Save</button>
+            </form>
+        </div>
+        <div id="entries" class="card">
+            <h2>Entries</h2>
+            <div id="entriesList"></div>
+        </div>
     </main>
     <aside id="settingsPanel">
         <h2>Settings</h2>
         <label for="apiKey">API Key:</label>
         <input type="text" id="apiKey" value="">
         <button id="saveBtn">Save</button>
+        <button id="closeBtn">Close</button>
     </aside>
     <script src="script.js"></script>
 </body>
