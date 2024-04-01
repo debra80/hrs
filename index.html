@@ -14,20 +14,57 @@
     </header>
     <main id="main">
         <div class="card">
-            <h2></h2>
             <form id="entryForm">
-                <input type="date" id="date" value="${getCurrentDate()}">
-                <input type="text" id="event" placeholder="Event">
-                <input type="time" id="arriveTime">
-                <input type="time" id="leaveTime">
-                <input type="number" id="numPeople" placeholder="Number of People">
+                <div class="input-group">
+                    <input type="text" id="event" placeholder="Event Name">
+                </div>
+                <div class="input-group">
+                    <label for="month"><i class="material-icons">date_range</i></label>
+                    <select id="month" class="custom-select">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <span> / </span>
+                    <input type="number" id="day" placeholder="Day" min="1" max="31">
+                    <span> / </span>
+                    <input type="number" id="year" placeholder="Year">
+                </div>
+                <div class="input-group">
+                    <label for="month"><i class="material-icons">schedule</i></label>
+                    <input type="number" id="hour" placeholder="Hour">
+                    <span>:</span>
+                    <input type="number" id="minute" placeholder="Minute">
+                    <select id="ampm" class="custom-select">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                    <span>—</span>
+                    <input type="number" id="endHour" placeholder="End Hour">
+                    <span>:</span>
+                    <input type="number" id="endMinute" placeholder="End Minute">
+                    <select id="endAmpm" class="custom-select">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                <label for="month"><i class="material-icons">people</i></label>
+                <input type="number" id="numPeople" placeholder="Number of people">
+                </div>
                 <button type="submit">Save</button>
             </form>
         </div>
-        <div id="entries" class="card">
-            <h2>Entries</h2>
-            <div id="entriesList"></div>
-        </div>
+        <div id="entriesList"></div>
     </main>
     <div id="settingsModal" class="modal">
         <div class="modal-content">
