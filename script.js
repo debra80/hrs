@@ -9,29 +9,18 @@ if (!settings) {
 }
 
 const main = document.getElementById('main');
-const settingsPanel = document.getElementById('settingsPanel');
-const settingsBtn = document.getElementById('settingsBtn');
-const saveBtn = document.getElementById('saveBtn');
 
-settingsBtn.addEventListener('click', () => {
-    settingsPanel.classList.toggle('show-panel');
-});
-
-saveBtn.addEventListener('click', () => {
-    const apiKey = document.getElementById('apiKey').value;
-    settings.apiKey = apiKey;
-    localStorage.setItem('settings', JSON.stringify(settings));
-    settingsPanel.classList.remove('show-panel');
-});
-
-function saveEntry(entry) {
-    let entries = JSON.parse(localStorage.getItem('entries')) || [];
-    entries.push(entry);
-    localStorage.setItem('entries', JSON.stringify(entries));
+function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 function renderEntries() {
-    main.innerHTML = '';
+    const entriesList = document.getElementById('entriesList');
+    entriesList.innerHTML = '';
     const entries = JSON.parse(localStorage.getItem('entries')) || [];
     entries.forEach(entry => {
         const row = document.createElement('div');
@@ -43,9 +32,38 @@ function renderEntries() {
             <span>${entry.leaveTime}</span>
             <span>${entry.totalHours}</span>
         `;
-        main.appendChild(row);
+        entriesList.appendChild(row);
     });
 }
+
+window.addEventListener('load', () => {
+    renderEntries();
+});
+
+// Adjust settings panel visibility
+document.addEventListener('DOMContentLoaded', function() {
+    const settingsPanel = document.getElementById('settingsPanel');
+    const settingsBtn = document.getElementById('settingsBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    settingsBtn.addEventListener('click', () => {
+        settingsPanel.classList.toggle('show-panel');
+    });
+
+    saveBtn.addEventListener('click', () => {
+        const apiKey = document.getElementById('apiKey').value;
+        settings.apiKey = apiKey;
+        localStorage.setItem('settings', JSON.stringify(settings));
+        settingsPanel.classList.remove('show-panel');
+    });
+
+    closeBtn.addEventListener('click', () => {
+        settingsPanel.classList.remove('show-panel');
+    });
+});
+
+const entryForm = document.getElementById('entryForm');
 
 entryForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -76,9 +94,7 @@ function calculateTotalHours(arriveTime, leaveTime) {
 }
 
 function saveEntry(entry) {
-    // Save entry to local storage
-}
-
-function renderEntries() {
-    // Render entries in the UI
+    let entries = JSON.parse(localStorage.getItem('entries')) || [];
+    entries.push(entry);
+    localStorage.setItem('entries', JSON.stringify(entries));
 }
