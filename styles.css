@@ -19,6 +19,23 @@ main {
     padding: 20px;
 }
 
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Adjustments for mobile */
+@media (max-width: 600px) {
+    .card {
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+}
+
 aside {
     position: fixed;
     top: 0;
