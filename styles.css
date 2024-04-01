@@ -8,7 +8,8 @@ body {
 }
 
 header {
-    background-color: rosybrown;
+    background-color: #bc8f8fd6;
+    backdrop-filter: blur(20px);
     color: white;
     position: fixed;
     width: 100%;
@@ -83,6 +84,7 @@ main {
     width: 50px;
     height: 50px;
     margin-right: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .input-group {
