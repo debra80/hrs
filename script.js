@@ -13,30 +13,55 @@ const main = document.getElementById('main');
 function getCurrentDate() {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    return `${month}-${day}-${year}`; // US date format
 }
 
 function renderEntries() {
     const entriesList = document.getElementById('entriesList');
     entriesList.innerHTML = '';
     const entries = JSON.parse(localStorage.getItem('entries')) || [];
+    const months = {}; // Object to store entries grouped by month
     entries.forEach(entry => {
-        const row = document.createElement('div');
-        row.classList.add('entry');
-        row.innerHTML = `
-            <span>${entry.date}</span>
-            <span>${entry.event}</span>
-            <span>${entry.arriveTime}</span>
-            <span>${entry.leaveTime}</span>
-            <span>${entry.totalHours}</span>
-        `;
-        entriesList.appendChild(row);
+        const dateParts = entry.date.split('-');
+        const monthYear = `${dateParts[0]}-${dateParts[2]}`;
+        if (!months[monthYear]) {
+            months[monthYear] = []; // Initialize array for the month if it doesn't exist
+        }
+        months[monthYear].push(entry);
+    });
+    Object.keys(months).sort().reverse().forEach(monthYear => {
+        const monthEntries = months[monthYear];
+        const monthCard = document.createElement('div');
+        monthCard.classList.add('card');
+        const monthTitle = document.createElement('h2');
+        monthTitle.textContent = monthYear; // Display month and year
+        monthCard.appendChild(monthTitle);
+        monthEntries.forEach(entry => {
+            const row = document.createElement('div');
+            row.classList.add('entry');
+            row.innerHTML = `
+                <span>${entry.date}</span>
+                <span>${entry.event}</span>
+                <span>${entry.arriveTime}</span>
+                <span>${entry.leaveTime}</span>
+                <span>${entry.totalHours}</span>
+            `;
+            monthCard.appendChild(row);
+        });
+        entriesList.appendChild(monthCard);
     });
 }
 
 window.addEventListener('load', () => {
+    // Fill in default date
+    const currentDate = getCurrentDate();
+    const [month, day, year] = currentDate.split('-');
+    document.getElementById('month').value = month;
+    document.getElementById('day').value = day;
+    document.getElementById('year').value = year;
+
     renderEntries();
 });
 
@@ -74,16 +99,25 @@ const entryForm = document.getElementById('entryForm');
 entryForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const date = document.getElementById('date').value;
     const event = document.getElementById('event').value;
-    const arriveTime = document.getElementById('arriveTime').value;
-    const leaveTime = document.getElementById('leaveTime').value;
+    const month = document.getElementById('month').value;
+    const day = document.getElementById('day').value;
+    const year = document.getElementById('year').value;
+    const hour = document.getElementById('hour').value;
+    const minute = document.getElementById('minute').value;
+    const ampm = document.getElementById('ampm').value;
+    const endHour = document.getElementById('endHour').value;
+    const endMinute = document.getElementById('endMinute').value;
+    const endAmpm = document.getElementById('endAmpm').value;
     const numPeople = parseInt(document.getElementById('numPeople').value) || 1;
+
+    const arriveTime = `${hour}:${minute} ${ampm}`;
+    const leaveTime = `${endHour}:${endMinute} ${endAmpm}`;
 
     const totalHours = calculateTotalHours(arriveTime, leaveTime) * numPeople;
 
     const entry = {
-        date,
+        date: `${month}-${day}-${year}`,
         event,
         arriveTime,
         leaveTime,
