@@ -100,6 +100,20 @@ main {
 }
 
 .input-group span {
-    margin: 0 5px;
+    margin: 0 5px 3px 5px;
     font-weight: bold;
+    font-family: system-ui;
 }
+
+input, select {
+    border: none;
+    font-family: monospace;
+}
+
+input#event {
+    width: 100%;
+    font-size: x-large;
+    font-family: system-ui;
+    font-weight: 500;
+}
+
