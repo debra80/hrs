@@ -117,3 +117,18 @@ input#event {
     font-weight: 500;
 }
 
+input#day, input#hour, input#endHour, input#minute, input#endMinute {
+    width: 34px;
+}
+
+input#year {
+    width: 56px;
+}
+
+select#ampm, select#endAmpm {
+    width: 42px;
+}
+
+label>i {
+    margin-right: 10px;
+}
