@@ -70,7 +70,7 @@ function renderEntries() {
 
             // Create hr
             const hr = document.createElement('hr');
-            hr.classList.add('delete-btn');
+            hr.classList.add('entry-hr');
             hr.innerHTML = '<hr>';
             row.appendChild(hr);
 
