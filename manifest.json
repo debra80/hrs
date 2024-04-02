@@ -1,14 +1,14 @@
 {
   "name": "Hours",
   "short_name": "Hours",
-  "start_url": "/",
+  "start_url": "/hrs",
   "display": "standalone",
   "theme_color": "#8b4513",
   "background_color": "#8b4513",
   "icons": [
     {
-      "src": "icon192.png",
-      "sizes": "192x192",
+      "src": "icon1024.png",
+      "sizes": "1024x1024",
       "type": "image/png"
     }
   ]
