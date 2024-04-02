@@ -143,7 +143,7 @@ entryForm.addEventListener('submit', (e) => {
     const arriveTime = `${hour}:${minute} ${ampm}`;
     const leaveTime = `${endHour}:${endMinute} ${endAmpm}`;
 
-    const totalHours = calculateTotalHours(arriveTime, leaveTime) * numPeople;
+    const totalHours = calculateTotalHours(arriveTime, leaveTime, `${month}-${day}-${year}`) * numPeople;
 
     const entry = {
         date: `${month}-${day}-${year}`,
@@ -166,23 +166,24 @@ entryForm.addEventListener('submit', (e) => {
     document.getElementById('year').value = currentYear;
 });
 
-function calculateTotalHours(arriveTime, leaveTime) {
+function calculateTotalHours(arriveTime, leaveTime, date) {
     try {
         console.log('Arrive Time:', arriveTime);
         console.log('Leave Time:', leaveTime);
-        
-        const startTime = new Date('2000-01-01 ' + arriveTime);
-        const endTime = new Date('2000-01-01 ' + leaveTime);
-        
+        console.log('Date:', date);
+
+        const startTime = new Date(`${date} ${arriveTime}`);
+        const endTime = new Date(`${date} ${leaveTime}`);
+
         console.log('Start Time:', startTime);
         console.log('End Time:', endTime);
-        
+
         const diff = endTime - startTime;
         console.log('Difference in milliseconds:', diff);
-        
+
         const totalHours = diff / (1000 * 60 * 60);
         console.log('Total Hours:', totalHours);
-        
+
         return totalHours;
     } catch (error) {
         console.error('Error calculating total hours:', error);
