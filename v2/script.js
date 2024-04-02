@@ -65,7 +65,7 @@ function renderEntries() {
             const deleteButton = document.createElement('button');
             deleteButton.classList.add('delete-btn');
             deleteButton.innerHTML = '<i class="material-icons">close</i>';
-            deleteButton.addEventListener('click', () => deleteEntry(entry.date));
+            deleteButton.addEventListener('click', () => deleteEntry(entries.indexOf(entry)));
             row.appendChild(deleteButton);
 
             monthCard.appendChild(row);
@@ -182,9 +182,9 @@ function saveEntry(entry) {
     localStorage.setItem('entries', JSON.stringify(entries));
 }
 
-function deleteEntry(date) {
+function deleteEntry(index) {
     let entries = JSON.parse(localStorage.getItem('entries')) || [];
-    entries = entries.filter(entry => entry.date !== date);
+    entries.splice(index, 1); // Remove the entry at the specified index
     localStorage.setItem('entries', JSON.stringify(entries));
     renderEntries();
 }
