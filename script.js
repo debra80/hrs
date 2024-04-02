@@ -13,9 +13,9 @@ const main = document.getElementById('main');
 function getCurrentDate() {
     const today = new Date();
     const year = today.getFullYear();
-    const month = today.toLocaleString('default', { month: 'short' });
+    const month = today.getMonth() + 1;
     const day = today.getDate();
-    return `${month} ${day}, ${year}`; // US date format
+    return `${month}-${day}-${year}`; // US date format
 }
 
 function renderEntries() {
@@ -35,9 +35,10 @@ function renderEntries() {
         const monthEntries = months[monthYear];
         const monthCard = document.createElement('div');
         monthCard.classList.add('card');
-        const monthTitle = document.createElement('h2');
         const [month, year] = monthYear.split('-');
-        monthTitle.textContent = `${month} ${year}`; // Display month and year
+        const monthName = new Date(`${month}-01-${year}`).toLocaleString('en-us', { month: 'long' });
+        const monthTitle = document.createElement('h2');
+        monthTitle.textContent = `${monthName} ${year}`; // Display month and year with month name
         monthCard.appendChild(monthTitle);
         monthEntries.forEach(entry => {
             const row = document.createElement('div');
@@ -58,9 +59,9 @@ function renderEntries() {
 window.addEventListener('load', () => {
     // Fill in default date
     const currentDate = getCurrentDate();
-    const [month, day, year] = currentDate.split(' ');
+    const [month, day, year] = currentDate.split('-');
     document.getElementById('month').value = month;
-    document.getElementById('day').value = day.replace(',', ''); // Remove comma
+    document.getElementById('day').value = day;
     document.getElementById('year').value = year;
 
     renderEntries();
@@ -131,13 +132,13 @@ entryForm.addEventListener('submit', (e) => {
 });
 
 function calculateTotalHours(arriveTime, leaveTime) {
-    const arrive = new Date(`01/01/2000 ${arriveTime}`);
-    const leave = new Date(`01/01/2000 ${leaveTime}`);
-    let hours = (leave - arrive) / 1000 / 60 / 60;
-    if (hours < 0) {
-        hours = 24 + hours; // Adjust for overnight work
-    }
-    return hours;
+    // Calculate total hours here
+    // For example:
+    const startTime = new Date('2000-01-01 ' + arriveTime);
+    const endTime = new Date('2000-01-01 ' + leaveTime);
+    const diff = endTime - startTime;
+    const totalHours = diff / 1000 / 60 / 60;
+    return totalHours;
 }
 
 function saveEntry(entry) {
