@@ -75,95 +75,106 @@ function renderEntries() {
 }
 
 window.addEventListener('load', () => {
-    // Fill in default date
-    const currentDate = getCurrentDate();
-    const [month, day, year] = currentDate.split('-');
-    document.getElementById('month').value = month;
-    document.getElementById('day').value = day;
-    document.getElementById('year').value = year;
+    try {
+        // Fill in default date
+        const currentDate = getCurrentDate();
+        const [month, day, year] = currentDate.split('-');
+        document.getElementById('month').value = month;
+        document.getElementById('day').value = day;
+        document.getElementById('year').value = year;
 
-    renderEntries();
+        renderEntries();
+    } catch (error) {
+        logToConsole('Error rendering entries: ' + error);
+    }
 });
 
 // Adjust settings modal visibility
 document.addEventListener('DOMContentLoaded', function() {
-    const settingsModal = document.getElementById('settingsModal');
-    const settingsBtn = document.getElementById('settingsBtn');
-    const saveBtn = document.getElementById('saveBtn');
-    const resetBtn = document.getElementById('resetBtn'); // New reset button
-    const closeBtn = document.getElementsByClassName('close')[0];
+    try {
+        const settingsModal = document.getElementById('settingsModal');
+        const settingsBtn = document.getElementById('settingsBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const resetBtn = document.getElementById('resetBtn'); // New reset button
+        const closeBtn = document.getElementsByClassName('close')[0];
 
-    settingsBtn.addEventListener('click', () => {
-        settingsModal.style.display = 'block';
-    });
+        settingsBtn.addEventListener('click', () => {
+            settingsModal.style.display = 'block';
+        });
 
-    closeBtn.addEventListener('click', () => {
-        settingsModal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target == settingsModal) {
+        closeBtn.addEventListener('click', () => {
             settingsModal.style.display = 'none';
-        }
-    });
+        });
 
-    saveBtn.addEventListener('click', () => {
-        const apiKey = document.getElementById('apiKey').value;
-        settings.apiKey = apiKey;
-        localStorage.setItem('settings', JSON.stringify(settings));
-        settingsModal.style.display = 'none';
-    });
+        window.addEventListener('click', (event) => {
+            if (event.target == settingsModal) {
+                settingsModal.style.display = 'none';
+            }
+        });
 
-    resetBtn.addEventListener('click', () => {
-        const confirmation = confirm("Warning: This cannot be undone! Are you sure you would like to reset?");
-        if (confirmation) {
-            localStorage.removeItem('entries');
-            renderEntries();
-        }
-    });
+        saveBtn.addEventListener('click', () => {
+            const apiKey = document.getElementById('apiKey').value;
+            settings.apiKey = apiKey;
+            localStorage.setItem('settings', JSON.stringify(settings));
+            settingsModal.style.display = 'none';
+        });
+
+        resetBtn.addEventListener('click', () => {
+            const confirmation = confirm("Warning: This cannot be undone! Are you sure you would like to reset?");
+            if (confirmation) {
+                localStorage.removeItem('entries');
+                renderEntries();
+            }
+        });
+    } catch (error) {
+        logToConsole('Error setting up settings UI: ' + error);
+    }
 });
 
 const entryForm = document.getElementById('entryForm');
 
 entryForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    try {
+        const event = document.getElementById('event').value;
+        const month = document.getElementById('month').value;
+        const day = document.getElementById('day').value;
+        const year = document.getElementById('year').value;
+        const hour = document.getElementById('hour').value;
+        const minute = document.getElementById('minute').value;
+        const ampm = document.getElementById('ampm').value;
+        const endHour = document.getElementById('endHour').value;
+        const endMinute = document.getElementById('endMinute').value;
+        const endAmpm = document.getElementById('endAmpm').value;
+        const numPeople = parseInt(document.getElementById('numPeople').value) || 1;
 
-    const event = document.getElementById('event').value;
-    const month = document.getElementById('month').value;
-    const day = document.getElementById('day').value;
-    const year = document.getElementById('year').value;
-    const hour = document.getElementById('hour').value;
-    const minute = document.getElementById('minute').value;
-    const ampm = document.getElementById('ampm').value;
-    const endHour = document.getElementById('endHour').value;
-    const endMinute = document.getElementById('endMinute').value;
-    const endAmpm = document.getElementById('endAmpm').value;
-    const numPeople = parseInt(document.getElementById('numPeople').value) || 1;
+        const arriveTime = `${hour}:${minute} ${ampm}`;
+        const leaveTime = `${endHour}:${endMinute} ${endAmpm}`;
 
-    const arriveTime = `${hour}:${minute} ${ampm}`;
-    const leaveTime = `${endHour}:${endMinute} ${endAmpm}`;
+        const totalHours = calculateTotalHours(arriveTime, leaveTime, `${month}-${day}-${year}`) * numPeople;
 
-    const totalHours = calculateTotalHours(arriveTime, leaveTime, `${month}-${day}-${year}`) * numPeople;
+        const entry = {
+            date: `${month}-${day}-${year}`,
+            event,
+            arriveTime,
+            leaveTime,
+            numPeople,
+            totalHours
+        };
 
-    const entry = {
-        date: `${month}-${day}-${year}`,
-        event,
-        arriveTime,
-        leaveTime,
-        numPeople,
-        totalHours
-    };
+        saveEntry(entry);
+        renderEntries();
+        entryForm.reset();
 
-    saveEntry(entry);
-    renderEntries();
-    entryForm.reset();
-
-    // Reset date to today's date
-    const currentDate = getCurrentDate();
-    const [currentMonth, currentDay, currentYear] = currentDate.split('-');
-    document.getElementById('month').value = currentMonth;
-    document.getElementById('day').value = currentDay;
-    document.getElementById('year').value = currentYear;
+        // Reset date to today's date
+        const currentDate = getCurrentDate();
+        const [currentMonth, currentDay, currentYear] = currentDate.split('-');
+        document.getElementById('month').value = currentMonth;
+        document.getElementById('day').value = currentDay;
+        document.getElementById('year').value = currentYear;
+    } catch (error) {
+        logToConsole('Error saving entry: ' + error);
+    }
 });
 
 function calculateTotalHours(arriveTime, leaveTime, date) {
@@ -198,19 +209,27 @@ function parseCustomDate(dateString, timeString) {
 }
 
 function saveEntry(entry) {
-    let entries = JSON.parse(localStorage.getItem('entries')) || [];
-    entries.push(entry);
-    localStorage.setItem('entries', JSON.stringify(entries));
-    logToConsole('Entry saved: ' + JSON.stringify(entry)); // Log the saved entry
+    try {
+        let entries = JSON.parse(localStorage.getItem('entries')) || [];
+        entries.push(entry);
+        localStorage.setItem('entries', JSON.stringify(entries));
+        logToConsole('Entry saved: ' + JSON.stringify(entry)); // Log the saved entry
+    } catch (error) {
+        logToConsole('Error saving entry to localStorage: ' + error);
+    }
 }
 
 function deleteEntry(index) {
     const confirmation = confirm("Are you sure you want to delete this entry?");
     if (confirmation) {
-        let entries = JSON.parse(localStorage.getItem('entries')) || [];
-        entries.splice(index, 1); // Remove the entry at the specified index
-        localStorage.setItem('entries', JSON.stringify(entries));
-        renderEntries();
+        try {
+            let entries = JSON.parse(localStorage.getItem('entries')) || [];
+            entries.splice(index, 1); // Remove the entry at the specified index
+            localStorage.setItem('entries', JSON.stringify(entries));
+            renderEntries();
+        } catch (error) {
+            logToConsole('Error deleting entry from localStorage: ' + error);
+        }
     }
 }
 
