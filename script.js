@@ -1,5 +1,3 @@
-// script.js
-
 // Check if settings are stored in local storage
 let settings = localStorage.getItem('settings');
 if (!settings) {
@@ -43,13 +41,39 @@ function renderEntries() {
         monthEntries.forEach(entry => {
             const row = document.createElement('div');
             row.classList.add('entry');
-            row.innerHTML = `
-                <span>${entry.date}</span>
-                <span>${entry.event}</span>
-                <span>${entry.arriveTime}</span>
-                <span>${entry.leaveTime}</span>
-                <span>${entry.totalHours}</span>
+
+            // Create day icon
+            const dayIcon = document.createElement('div');
+            dayIcon.classList.add('day-icon');
+            dayIcon.textContent = entry.date.split('-')[1];
+            row.appendChild(dayIcon);
+
+            // Create content
+            const content = document.createElement('div');
+            content.classList.add('entry-content');
+            content.innerHTML = `
+                <span>${entry.event}</span><br>
+                <div id="details">
+                <label for="month"><i class="material-icons">schedule</i></label><span class="detail">${entry.arriveTime} - ${entry.leaveTime}</span>
+                <label for="month"><i class="material-icons">people</i></label><span class="detail">${entry.numPeople}</span>
+                <label for="month"><i class="material-symbols-outlined">equal</i></label><span class="detail">${entry.totalHours} hours</span>
+                </div>
             `;
+            row.appendChild(content);
+
+            // Create delete button
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('delete-btn');
+            deleteButton.innerHTML = '<i class="material-icons">close</i>';
+            deleteButton.addEventListener('click', () => deleteEntry(entries.indexOf(entry)));
+            row.appendChild(deleteButton);
+
+            // Create hr
+            const hr = document.createElement('hr');
+            hr.classList.add('delete-btn');
+            hr.innerHTML = '<hr>';
+            row.appendChild(hr);
+
             monthCard.appendChild(row);
         });
         entriesList.appendChild(monthCard);
@@ -132,6 +156,7 @@ entryForm.addEventListener('submit', (e) => {
         event,
         arriveTime,
         leaveTime,
+        numPeople,
         totalHours
     };
 
@@ -161,4 +186,14 @@ function saveEntry(entry) {
     let entries = JSON.parse(localStorage.getItem('entries')) || [];
     entries.push(entry);
     localStorage.setItem('entries', JSON.stringify(entries));
+}
+
+function deleteEntry(index) {
+    const confirmation = confirm("Are you sure you want to delete this entry?");
+    if (confirmation) {
+        let entries = JSON.parse(localStorage.getItem('entries')) || [];
+        entries.splice(index, 1); // Remove the entry at the specified index
+        localStorage.setItem('entries', JSON.stringify(entries));
+        renderEntries();
+    }
 }
