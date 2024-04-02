@@ -68,12 +68,6 @@ function renderEntries() {
             deleteButton.addEventListener('click', () => deleteEntry(entries.indexOf(entry)));
             row.appendChild(deleteButton);
 
-            // Create hr
-            const hr = document.createElement('hr');
-            hr.classList.add('entry-hr');
-            hr.innerHTML = '<hr>';
-            row.appendChild(hr);
-
             monthCard.appendChild(row);
         });
         entriesList.appendChild(monthCard);
