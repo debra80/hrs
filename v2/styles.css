@@ -193,7 +193,7 @@ button {
     color: black;
     width: 40px;
     height: 40px;
-    border-radius: 5px;
+    border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -225,7 +225,7 @@ button {
     font-size: small;
 }
 
-#details>label>.material-icons {
+#details>label>.material-icons, #details>label>.material-symbols-outlined {
     font-size: small;
     margin-right: 2px 4px 2px 0;
     vertical-align: middle;
