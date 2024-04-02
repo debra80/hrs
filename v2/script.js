@@ -56,7 +56,7 @@ function renderEntries() {
                 <div id="details">
                 <label for="month"><i class="material-icons">schedule</i></label><span class="detail">${entry.arriveTime} - ${entry.leaveTime}</span>
                 <label for="month"><i class="material-icons">people</i></label><span class="detail">${entry.numPeople}</span>
-                <span class="detail">= ${entry.totalHours} hrs</span>
+                <label for="month"><i class="material-symbols-outlined">equal</i></label><span class="detail">${entry.totalHours} hours</span>
                 </div>
             `;
             row.appendChild(content);
