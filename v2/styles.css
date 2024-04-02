@@ -241,3 +241,7 @@ button {
     text-align: center;
     margin-bottom: 1px;
 }
+
+.settingsLabel>i.material-icons {
+    vertical-align: middle;
+}
