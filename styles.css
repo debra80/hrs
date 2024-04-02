@@ -116,6 +116,7 @@ main {
 input, select {
     border: none;
     font-family: monospace;
+    outline: none;
 }
 
 input#event {
