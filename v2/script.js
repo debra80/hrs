@@ -183,8 +183,11 @@ function saveEntry(entry) {
 }
 
 function deleteEntry(index) {
-    let entries = JSON.parse(localStorage.getItem('entries')) || [];
-    entries.splice(index, 1); // Remove the entry at the specified index
-    localStorage.setItem('entries', JSON.stringify(entries));
-    renderEntries();
+    const confirmation = confirm("Are you sure you want to delete this entry?");
+    if (confirmation) {
+        let entries = JSON.parse(localStorage.getItem('entries')) || [];
+        entries.splice(index, 1); // Remove the entry at the specified index
+        localStorage.setItem('entries', JSON.stringify(entries));
+        renderEntries();
+    }
 }
