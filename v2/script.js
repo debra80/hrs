@@ -64,7 +64,7 @@ function renderEntries() {
             // Create delete button
             const deleteButton = document.createElement('button');
             deleteButton.classList.add('delete-btn');
-            deleteButton.innerHTML = '<i class="material-icons">delete</i>';
+            deleteButton.innerHTML = '<i class="material-icons">close</i>';
             deleteButton.addEventListener('click', () => deleteEntry(entry.date));
             row.appendChild(deleteButton);
 
