@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const settingsModal = document.getElementById('settingsModal');
     const settingsBtn = document.getElementById('settingsBtn');
     const saveBtn = document.getElementById('saveBtn');
+    const resetBtn = document.getElementById('resetBtn');
     const closeBtn = document.getElementsByClassName('close')[0];
 
     settingsBtn.addEventListener('click', () => {
@@ -93,6 +94,16 @@ document.addEventListener('DOMContentLoaded', function() {
         settings.apiKey = apiKey;
         localStorage.setItem('settings', JSON.stringify(settings));
         settingsModal.style.display = 'none';
+    });
+
+    resetBtn.addEventListener('click', () => {
+        // Show confirmation modal
+        const confirmation = confirm("Warning: This cannot be undone! Are you sure you would like to reset?");
+        if (confirmation) {
+            // Reset local storage entries
+            localStorage.removeItem('entries');
+            renderEntries();
+        }
     });
 });
 
@@ -129,6 +140,13 @@ entryForm.addEventListener('submit', (e) => {
     saveEntry(entry);
     renderEntries();
     entryForm.reset();
+
+    // Fill in default date for the next entry
+    const currentDate = getCurrentDate();
+    const [nextMonth, nextDay, nextYear] = currentDate.split('-');
+    document.getElementById('month').value = nextMonth;
+    document.getElementById('day').value = nextDay;
+    document.getElementById('year').value = nextYear;
 });
 
 function calculateTotalHours(arriveTime, leaveTime) {
