@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hours</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Sono:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <header>
+        <h1>Hours</h1>
+        <button id="settingsBtn" class="material-icons">settings</button>
+    </header>
+    <main id="main">
+        <div class="card">
+            <form id="entryForm">
+                <div class="input-group">
+                    <input type="text" id="event" placeholder="Event Name">
+                </div>
+                <div class="input-group">
+                    <label for="month"><i class="material-icons">date_range</i></label>
+                    <select id="month" class="custom-select">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <span> / </span>
+                    <input type="number" id="day" placeholder="DD" min="1" max="31">
+                    <span> / </span>
+                    <input type="number" id="year" placeholder="YYYY">
+                </div>
+                <div class="input-group">
+                    <label for="month"><i class="material-icons">schedule</i></label>
+                    <input type="number" id="hour" placeholder="##">
+                    <span>:</span>
+                    <input type="number" id="minute" placeholder="##">
+                    <select id="ampm" class="custom-select">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                    <span>—</span>
+                    <input type="number" id="endHour" placeholder="##">
+                    <span>:</span>
+                    <input type="number" id="endMinute" placeholder="##">
+                    <select id="endAmpm" class="custom-select">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                <label for="month"><i class="material-icons">people</i></label>
+                <input type="number" id="numPeople" placeholder="##">
+                </div>
+                <button id="saveEntry" type="submit" class="saveBtn">Save</button>
+            </form>
+        </div>
+        <div id="entriesList"></div>
+    </main>
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Settings</h2>
+            <label for="apiKey">API Key:</label>
+            <input type="text" id="apiKey" value="" placeholder="API Key">
+            <button id="saveBtn" class="saveBtn">Save</button>
+            <button id="resetBtn" class="resetBtn">Reset</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
