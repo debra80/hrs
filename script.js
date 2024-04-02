@@ -34,7 +34,7 @@ function renderEntries() {
         const monthCard = document.createElement('div');
         monthCard.classList.add('card');
         const [month, year] = monthYear.split('-');
-        const monthName = new Date(`${month}-01-${year}`).toLocaleString('en-us', { month: 'long' });
+        const monthName = new Date(`${year}-${month}-01`).toLocaleString('en-us', { month: 'long' });
         const monthTitle = document.createElement('h2');
         monthTitle.textContent = `${monthName} ${year}`; // Display month and year with month name
         monthCard.appendChild(monthTitle);
@@ -180,7 +180,7 @@ function calculateTotalHours(arriveTime, leaveTime) {
         const diff = endTime - startTime;
         console.log('Difference in milliseconds:', diff);
         
-        const totalHours = diff / 1000 / 60 / 60;
+        const totalHours = diff / (1000 * 60 * 60);
         console.log('Total Hours:', totalHours);
         
         return totalHours;
