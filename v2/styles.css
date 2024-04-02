@@ -242,6 +242,18 @@ button {
     margin-bottom: 1px;
 }
 
-.settingsLabel>i.material-icons {
+.settingsLabel>i.material-icons, .settingsLabel>span {
     vertical-align: middle;
+}
+
+#resetBtn {
+    background: indianred;
+    border-radius: 6px;
+    margin: 5px 0;
+    box-shadow: none;
+    font-size: medium;
+    letter-spacing: 0.25px;
+}
+#apiKey {
+    width: 100%;
 }
