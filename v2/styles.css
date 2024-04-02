@@ -227,6 +227,6 @@ button {
 
 #details>label>.material-icons, #details>label>.material-symbols-outlined {
     font-size: small;
-    margin-right: 2px 4px 2px 0;
+    margin: 2px 4px 2px 0;
     vertical-align: middle;
 }
