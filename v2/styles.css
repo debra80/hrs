@@ -213,10 +213,12 @@ button {
     height: 40px;
     box-shadow: none;
     border-radius: 6px;
+    padding: 8px;
 }
 
 .delete-btn:hover {
-    color: red;
+    background: red;
+    color: white;
 }
 
 .detail {
