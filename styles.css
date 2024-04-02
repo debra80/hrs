@@ -84,6 +84,7 @@ main {
     width: 50px;
     height: 50px;
     margin-right: 20px;
+    padding: 0;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -150,4 +151,15 @@ main>.card {
 
 input:focus, select:focus {
     border-bottom: 2px dashed #00000080;
+}
+
+button {
+    background: lightgreen;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-family: system-ui;
+    font-weight: 600;
+    text-transform: uppercase;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
