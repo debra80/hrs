@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const settingsModal = document.getElementById('settingsModal');
     const settingsBtn = document.getElementById('settingsBtn');
     const saveBtn = document.getElementById('saveBtn');
-    const resetBtn = document.getElementById('resetBtn');
+    const resetBtn = document.getElementById('resetBtn'); // New reset button
     const closeBtn = document.getElementsByClassName('close')[0];
 
     settingsBtn.addEventListener('click', () => {
@@ -97,10 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     resetBtn.addEventListener('click', () => {
-        // Show confirmation modal
         const confirmation = confirm("Warning: This cannot be undone! Are you sure you would like to reset?");
         if (confirmation) {
-            // Reset local storage entries
             localStorage.removeItem('entries');
             renderEntries();
         }
@@ -141,12 +139,12 @@ entryForm.addEventListener('submit', (e) => {
     renderEntries();
     entryForm.reset();
 
-    // Fill in default date for the next entry
+    // Reset date to today's date
     const currentDate = getCurrentDate();
-    const [nextMonth, nextDay, nextYear] = currentDate.split('-');
-    document.getElementById('month').value = nextMonth;
-    document.getElementById('day').value = nextDay;
-    document.getElementById('year').value = nextYear;
+    const [currentMonth, currentDay, currentYear] = currentDate.split('-');
+    document.getElementById('month').value = currentMonth;
+    document.getElementById('day').value = currentDay;
+    document.getElementById('year').value = currentYear;
 });
 
 function calculateTotalHours(arriveTime, leaveTime) {
