@@ -168,10 +168,21 @@ entryForm.addEventListener('submit', (e) => {
 
 function calculateTotalHours(arriveTime, leaveTime) {
     try {
-        const startTime = parseCustomDate('2000-01-01', arriveTime);
-        const endTime = parseCustomDate('2000-01-01', leaveTime);
+        console.log('Arrive Time:', arriveTime);
+        console.log('Leave Time:', leaveTime);
+        
+        const startTime = new Date('2000-01-01 ' + arriveTime);
+        const endTime = new Date('2000-01-01 ' + leaveTime);
+        
+        console.log('Start Time:', startTime);
+        console.log('End Time:', endTime);
+        
         const diff = endTime - startTime;
+        console.log('Difference in milliseconds:', diff);
+        
         const totalHours = diff / 1000 / 60 / 60;
+        console.log('Total Hours:', totalHours);
+        
         return totalHours;
     } catch (error) {
         console.error('Error calculating total hours:', error);
