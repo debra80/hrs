@@ -114,7 +114,9 @@ main {
 }
 
 input, select {
-    border: none;
+    border: 2px solid transparent;
+    border-left: none;
+    border-right: none;
     font-family: monospace;
     outline: none;
 }
@@ -144,4 +146,8 @@ label>i {
 
 main>.card {
     margin-top: 80px;
+}
+
+input:focus, select:focus {
+    border-bottom: 2px dashed #00000080;
 }
