@@ -1,7 +1,7 @@
 /* styles.css */
 
 body {
-    font-family: system-ui;
+    font-family: "Inter", system-ui;
     margin: 0;
     padding: 0;
     background-color: rosybrown;
@@ -111,21 +111,22 @@ main {
 .input-group span {
     margin: 0 5px 3px 5px;
     font-weight: bold;
-    font-family: system-ui;
+    font-family: "Inter", system-ui;
 }
 
 input, select {
     border: 2px solid transparent;
     border-left: none;
     border-right: none;
-    font-family: monospace;
+    font-family: "Sono", monospace;
+    font-weight: 500;
     outline: none;
 }
 
 input#event {
     width: 100%;
     font-size: x-large;
-    font-family: system-ui;
+    font-family: "Inter", system-ui;
     font-weight: 500;
 }
 
