@@ -167,19 +167,29 @@ entryForm.addEventListener('submit', (e) => {
 });
 
 function calculateTotalHours(arriveTime, leaveTime) {
-    // Calculate total hours here
-    // For example:
-    const startTime = new Date('2000-01-01 ' + arriveTime);
-    const endTime = new Date('2000-01-01 ' + leaveTime);
-    const diff = endTime - startTime;
-    const totalHours = diff / 1000 / 60 / 60;
-    return totalHours;
+    try {
+        const startTime = parseCustomDate('2000-01-01', arriveTime);
+        const endTime = parseCustomDate('2000-01-01', leaveTime);
+        const diff = endTime - startTime;
+        const totalHours = diff / 1000 / 60 / 60;
+        return totalHours;
+    } catch (error) {
+        console.error('Error calculating total hours:', error);
+        return null; // Return null if an error occurs
+    }
+}
+
+function parseCustomDate(dateString, timeString) {
+    const [year, month, day] = dateString.split('-');
+    const [hours, minutes] = timeString.split(':');
+    return new Date(year, month - 1, day, hours, minutes);
 }
 
 function saveEntry(entry) {
     let entries = JSON.parse(localStorage.getItem('entries')) || [];
     entries.push(entry);
     localStorage.setItem('entries', JSON.stringify(entries));
+    logToConsole('Entry saved: ' + JSON.stringify(entry)); // Log the saved entry
 }
 
 function deleteEntry(index) {
@@ -191,3 +201,13 @@ function deleteEntry(index) {
         renderEntries();
     }
 }
+
+function logToConsole(message) {
+    const consoleLog = document.getElementById('consoleLog');
+    const logEntry = document.createElement('div');
+    logEntry.textContent = message;
+    consoleLog.appendChild(logEntry);
+}
+
+// Log initial settings
+logToConsole('Initial settings: ' + JSON.stringify(settings));
