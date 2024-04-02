@@ -122,6 +122,7 @@ input, select {
     font-size: medium;
     font-weight: 500;
     outline: none;
+    padding: 4px 0;
 }
 
 input#event {
