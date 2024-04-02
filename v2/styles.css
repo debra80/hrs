@@ -2,11 +2,11 @@ body {
     font-family: "Inter", system-ui;
     margin: 0;
     padding: 0;
-    background-color: rosybrown;
+    background-color: saddlebrown;
 }
 
 header {
-    background-color: #bc8f8fd6;
+    background-color: #8b4513d6;
     backdrop-filter: blur(20px);
     color: white;
     position: fixed;
@@ -189,10 +189,10 @@ button {
 }
 
 .day-icon {
-    background-color: red;
-    color: white;
-    width: 30px;
-    height: 30px;
+    background-color: sandybrown;
+    color: black;
+    width: 40px;
+    height: 40px;
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -205,10 +205,14 @@ button {
 }
 
 .delete-btn {
-    background: none;
+    background: lightgrey;
     border: none;
     cursor: pointer;
     outline: none;
+    width: 40px;
+    height: 40px;
+    box-shadow: none;
+    border-radius: 6px;
 }
 
 .delete-btn:hover {
@@ -220,6 +224,7 @@ button {
 }
 
 #details>label>.material-icons {
-  font-size: small;
-  margin-right: 2px;
+    font-size: small;
+    margin-right: 2px 4px 2px 0;
+    vertical-align: middle;
 }
