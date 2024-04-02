@@ -170,6 +170,7 @@ button {
     border: 2px solid transparent;
     border-radius: 6px;
     padding: 10px 20px;
+    margin: 5px 0;
     font-family: "Inter", system-ui;
     font-weight: 600;
     font-size: medium;
@@ -215,6 +216,7 @@ button {
     box-shadow: none;
     border-radius: 50px;
     padding: 0;
+    margin: 5px 0;
 }
 
 .delete-btn:hover {
